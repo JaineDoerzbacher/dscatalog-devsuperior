@@ -1,10 +1,15 @@
-package entities;
+package com.devsuperior.dscatalog.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_category")
 public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Para indicar que o id é auto incrementado
     private Long id;
     private String name;
 
@@ -36,7 +41,7 @@ public class Category implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Category category)) return false;
-        return Objects.equals(id, category.id);
+        return false;
     }
 
     @Override
