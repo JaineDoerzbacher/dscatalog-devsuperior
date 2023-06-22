@@ -42,5 +42,11 @@ public class CategoryResourse {
         return ResponseEntity.ok().body(dto); // Para retornar a resposta com sucesso do HTTP
     }
 
+    @DeleteMapping(value = "/{id}") // Para indicar que o método responde a requisição do tipo DELETE do HTTP
+    public ResponseEntity<CategoryDTO> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build(); // Para retornar a resposta com sucesso do HTTP
+    }
+
 
 }
