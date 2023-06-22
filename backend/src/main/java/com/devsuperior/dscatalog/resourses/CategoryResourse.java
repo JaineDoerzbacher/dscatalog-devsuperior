@@ -1,5 +1,6 @@
 package com.devsuperior.dscatalog.resourses;
 
+import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class CategoryResourse {
 
     @Transactional(readOnly = true) // Para indicar que o método é somente leitura
     @GetMapping // Para indicar que o método responde a requisição do tipo GET do HTTP
-    public ResponseEntity<List<Category>> findAll() {
-        List<Category> list = service.findAll(); // Para acessar o serviço
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> list = service.findAll(); // Para acessar o serviço
         return ResponseEntity.ok().body(list); // Para retornar a resposta com sucesso do HTTP
     }
 
