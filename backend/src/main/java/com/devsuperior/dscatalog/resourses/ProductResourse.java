@@ -1,13 +1,10 @@
 package com.devsuperior.dscatalog.resourses;
 
-import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
-import com.devsuperior.dscatalog.services.CategoryService;
 import com.devsuperior.dscatalog.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,14 +20,9 @@ public class ProductResourse {
     private ProductService service;
 
     @GetMapping // Para indicar que o método responde a requisição do tipo GET do HTTP
-    public ResponseEntity<Page<ProductDTO>> findAll(
-            @RequestParam(value = "page", defaultValue = "0") Integer page, // Para indicar o parâmetro da requisição
-            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage, // Para indicar o parâmetro da requisição
-            @RequestParam(value = "direction", defaultValue = "ASC") String direction, // Para indicar o parâmetro da requisição
-            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy) { // Para indicar o parâmetro da requisição)
+    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) { // Para indicar o parâmetro da requisição)
 
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<ProductDTO> list = service.findAllPaged(pageRequest); // Para acessar o serviço
+        Page<ProductDTO> list = service.findAllPaged(pageable); // Para acessar o serviço
 
         return ResponseEntity.ok().body(list); // Para retornar a resposta com sucesso do HTTP
     }
