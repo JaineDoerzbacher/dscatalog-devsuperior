@@ -1,13 +1,18 @@
 package com.devsuperior.dscatalog.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Para indicar que o id é auto incrementado
     private Long id;
     private String firstName;
     private String lastName;
@@ -15,6 +20,11 @@ public class User implements Serializable {
     private String password;
 
 
+    @ManyToMany
+    @JoinTable(name = "tb_user_role", //nome da tabela de associação
+            joinColumns = @JoinColumn(name = "user_id"), //nome da chave estrangeira da tabela tb_user_role que referencia a tabela tb_user
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    //nome da chave estrangeira da tabela tb_user_role que referencia a tabela tb_role
     private Set<Role> roles = new HashSet<>();
 
     public User() {
