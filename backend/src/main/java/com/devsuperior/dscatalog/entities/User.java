@@ -20,7 +20,7 @@ public class User implements Serializable {
     private String password;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //para garantir que os perfis serão carregados juntos com o usuário
     @JoinTable(name = "tb_user_role", //nome da tabela de associação
             joinColumns = @JoinColumn(name = "user_id"), //nome da chave estrangeira da tabela tb_user_role que referencia a tabela tb_user
             inverseJoinColumns = @JoinColumn(name = "role_id"))
