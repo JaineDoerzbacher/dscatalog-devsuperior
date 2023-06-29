@@ -3,7 +3,9 @@ package com.devsuperior.dscatalog.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -21,6 +23,9 @@ public class Category implements Serializable {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     // Para indicar que o tipo de dado é timestamp sem fuso horário
     private Instant updatedAt;
+
+    @ManyToMany(mappedBy = "categories") //não precisa criar uma tabela de associação entre as duas tabelas (product e category) pois já existe uma tabela de associação entre elas (product_category)
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
@@ -46,6 +51,9 @@ public class Category implements Serializable {
         return this.updatedAt;
     }
 
+    public Set<Product> getProducts() {
+        return this.products;
+    }
     public void setId(Long id) {
         this.id = id;
     }
