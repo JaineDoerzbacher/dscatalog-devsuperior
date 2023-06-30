@@ -20,6 +20,7 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
 
+    @Column(unique = true) // Para garantir que o email será único
     private String email;
     private String password;
 
