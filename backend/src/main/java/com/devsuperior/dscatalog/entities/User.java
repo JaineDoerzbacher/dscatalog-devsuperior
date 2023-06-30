@@ -1,6 +1,8 @@
 package com.devsuperior.dscatalog.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,8 +16,10 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Para indicar que o id é auto incrementado
     private Long id;
+
     private String firstName;
     private String lastName;
+
     private String email;
     private String password;
 

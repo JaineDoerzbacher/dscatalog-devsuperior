@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 
@@ -35,7 +36,7 @@ public class ProductResourse {
     }
 
     @PostMapping // Para indicar que o método responde a requisição do tipo POST do HTTP
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}") // Para retornar o código 201
                 .buildAndExpand(dto.getId()).toUri();
@@ -43,7 +44,7 @@ public class ProductResourse {
     }
 
     @PutMapping(value = "/{id}") // Para indicar que o método responde a requisição do tipo PUT do HTTP
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDTO> update(@Valid @PathVariable Long id, @RequestBody ProductDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto); // Para retornar a resposta com sucesso do HTTP
     }

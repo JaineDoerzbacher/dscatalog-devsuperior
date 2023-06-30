@@ -87,4 +87,15 @@ public class UserService  {
     }
 
 
+    public UserDTO update(Long id, UserDTO dto) {
+        try {
+            User entity = repository.getOne(id);
+            copyDtoToEntity(dto, entity);
+            entity = repository.save(entity);
+            return new UserDTO(entity);
+        }
+        catch (javax.persistence.EntityNotFoundException e) {
+            throw new ResourseNotFoundException("Id not found " + id);
+        }
+    }
 }

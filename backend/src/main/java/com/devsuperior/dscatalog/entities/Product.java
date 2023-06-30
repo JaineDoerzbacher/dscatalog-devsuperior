@@ -1,6 +1,10 @@
 package com.devsuperior.dscatalog.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -15,11 +19,15 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Para indicar que o id é auto incrementado
     private Long id;
+
     private String name;
+
     @Column(columnDefinition = "TEXT") // Para indicar que o tipo de dado é texto
     private String description;
+
     private Double price;
     private String imgUrl;
+
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
