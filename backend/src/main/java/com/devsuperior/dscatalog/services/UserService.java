@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.devsuperior.dscatalog.dto.RoleDTO;
 import com.devsuperior.dscatalog.dto.UserDTO;
 import com.devsuperior.dscatalog.dto.UserInsertDTO;
+import com.devsuperior.dscatalog.dto.UserUpdateDTO;
 import com.devsuperior.dscatalog.entities.Role;
 import com.devsuperior.dscatalog.entities.User;
 import com.devsuperior.dscatalog.repositories.RoleRepository;
@@ -22,6 +23,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 
 
 @Service
@@ -87,14 +90,15 @@ public class UserService  {
     }
 
 
-    public UserDTO update(Long id, UserDTO dto) {
+    @Transactional
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try {
             User entity = repository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new UserDTO(entity);
         }
-        catch (javax.persistence.EntityNotFoundException e) {
+        catch (EntityNotFoundException e) {
             throw new ResourseNotFoundException("Id not found " + id);
         }
     }
